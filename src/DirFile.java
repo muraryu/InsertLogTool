@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class DirFile {
 
 	static private ArrayList<File> files;
- 
+
 	static public ArrayList<File> getAllFiles(File dir) {
 
 		DirFile.files = new ArrayList<File>();
