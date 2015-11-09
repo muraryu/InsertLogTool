@@ -1,9 +1,11 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.regex.Pattern;
@@ -18,9 +20,10 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-		String regexFileName	= ".*\\.java";
-		String regexTargetLine	= "[^#]*[,	 ;(){}]*System\\.out\\.println\\(.*\\\".*\\\".*";
-		String funcName			= "System.out.println";
+		String regexFileName	= ".*\\.c";
+		String regexTargetLine	= "[^#]*[,	 ;(){}]*PrintT[0-9][0-3]?\\(.*\\\".*\\\".*";
+		String funcName			= "PrintT";
+		String encName			= "SJIS";
 
 		if (args.length == 0) {
 			System.out.println("usage:	AddNameRow [RootDirPath or FilePath]");
@@ -46,7 +49,7 @@ public class Main {
 			ArrayList<String> strList = new ArrayList<String>();
 
 			// 1行ずつ読み込みループ
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),encName));
 			String str;
 			int lineNum = 1;
 			while ((str = br.readLine()) != null) {
@@ -88,7 +91,7 @@ public class Main {
 			// 挿入した場合はファイル置き換え
 			if(replaceFileFlag) {
 				file.delete();
-				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(file.getAbsolutePath())));
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath()),encName));
 
 				// 書き込み
 				Iterator<String> itStrList = strList.iterator();
@@ -105,6 +108,11 @@ public class Main {
 /*
  *
 System.out.println(file.getName() + "," + lineNum + " : " + str);
+
+PrintT0( PRINT_ALL, "RecoveryMgr::RecoveryStop\r\n" );
+PrintT9( PRINT_ALL, "RecoveryMgr::RecoveryStop\r\n" );
+PrintT10( PRINT_ALL, "RecoveryMgr::RecoveryStop\r\n" );
+PrintT13( PRINT_ALL, "RecoveryMgr::RecoveryStop\r\n" );
  */
 		}
 
