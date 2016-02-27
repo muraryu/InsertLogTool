@@ -8,6 +8,11 @@ public class DirFile {
 
 	static private ArrayList<File> files;
 
+	/**
+	 * dir以下のディレクトリ以外のFileインスタンスをすべて取得する。
+	 * @param dir - ディレクトリを示すこのFileインスタンス以下が検索対象となる。
+	 * @return dir以下のディレクトリ以外のFileインスタンスのArrayList
+	 */
 	static public ArrayList<File> getAllFiles(File dir) {
 
 		DirFile.files = new ArrayList<File>();
@@ -17,10 +22,11 @@ public class DirFile {
 	}
 
 	/**
-	 * ルートディレクトリ以下のすべてのファイルのうち正規表現にマッチするファイルを取得する
-	 * @param dir
-	 * @param regex
-	 * @return
+	 * dirが示すディレクトリ以下のすべてのファイルのうち正規表現にマッチするファイルを取得する。
+	 * @param dir - ディレクトリを示すこのFileインスタンス以下が検索対象となる。
+	 * @param regex - 検索するファイルの正規表現。Patternクラスの記述方法に従う。
+	 * @return 正規表現にマッチしたファイルのFileインスタンスをArrayListで返す。
+	 *         マッチするファイルが存在しない場合も要素が空のArrayListを返す。
 	 */
 	static public ArrayList<File> getAllFiles(File dir, String regex) {
 
@@ -42,6 +48,11 @@ public class DirFile {
 
 	}
 
+	/**
+	 * ディレクトリdir以下のすべてのファイルのFileインスタンスを再帰的に取得してthis.filesに格納する。
+	 * つまりthis.filesにはディレクトリを示すFileインスタンスは含まれない。
+	 * @param dir - ディレクトリを示すこのFileインスタンス以下が検索対象となる。
+	 */
 	private static void readFolder(File dir) {
 
 		File[] files = dir.listFiles();
